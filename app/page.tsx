@@ -41,11 +41,16 @@ export default function Home() {
       <div className="bg-[#FAFDF9] rounded-3xl shadow-sm p-5 w-full max-w-md border border-[#E3EFE5]">
         
         <input
-          value={win}
-          onChange={(e) => setWin(e.target.value)}
-          className="w-full p-3 rounded-xl bg-[#F6FBF7] border border-[#DCE8DE] focus:outline-none focus:ring-2 focus:ring-[#A7C4A0] mb-3 text-[#2F3E2F] placeholder:text-[#8AA08A]"
-          placeholder="what did you do today?"
-        />
+  value={win}
+  onChange={(e) => setWin(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  }}
+  className="w-full p-3 rounded-xl bg-[#F6FBF7] border border-[#DCE8DE] focus:outline-none focus:ring-2 focus:ring-[#A7C4A0] mb-3 text-[#2F3E2F] placeholder:text-[#8AA08A]"
+  placeholder="what did you do today?"
+/>
 
         <button
           onClick={handleSubmit}
