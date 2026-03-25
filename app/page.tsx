@@ -50,6 +50,12 @@ export default function Home() {
         </p>
       </div>
 
+      {/* Daily Wins Counter Top-Right */}
+<div className="absolute top-6 right-6 flex items-center gap-2 bg-[#A28497]/20 text-[#A28497] px-3 py-1 rounded-full font-semibold shadow-sm">
+  <span>🌿</span>
+  <span>{wins.length} / 3</span>
+</div>
+
       {/* Centered Content */}
 <div className="flex flex-col items-center justify-center min-h-screen px-4">
 
