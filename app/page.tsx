@@ -1,65 +1,83 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+
+const hypeMessages = [
+  "You're unstop-baaah-ble.",
+  "Elite baaa-havior.",
+  "From one goat to another, I'm proud of you.",
+  "I revoke my goat status to YOU."
+];
 
 export default function Home() {
+  const [win, setWin] = useState("");
+  const [hype, setHype] = useState("");
+  const [wins, setWins] = useState<string[]>([]);
+
+  const handleSubmit = () => {
+    if (!win) return;
+
+    const random =
+      hypeMessages[Math.floor(Math.random() * hypeMessages.length)];
+
+    setWins([win, ...wins]);
+    setHype(random);
+    setWin("");
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="min-h-screen bg-[#F0F7F1] flex flex-col items-center p-6">
+      
+      {/* Header */}
+      <h1 className="text-3xl font-semibold mb-1 text-[#2F3E2F]">
+        your wins
+      </h1>
+
+      <p className="text-sm text-[#5C6F5C] mb-6">
+        "big wins or small wins, i eat them all 🌿" - the goat
+      </p>
+
+      {/* Input Card */}
+      <div className="bg-[#FAFDF9] rounded-3xl shadow-sm p-5 w-full max-w-md border border-[#E3EFE5]">
+        
+        <input
+          value={win}
+          onChange={(e) => setWin(e.target.value)}
+          className="w-full p-3 rounded-xl bg-[#F6FBF7] border border-[#DCE8DE] focus:outline-none focus:ring-2 focus:ring-[#A7C4A0] mb-3 text-[#2F3E2F] placeholder:text-[#8AA08A]"
+          placeholder="what did you do today?"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-[#A7C4A0] hover:bg-[#8FB38A] text-[#243024] font-medium py-2 rounded-xl transition"
+        >
+          log my win 🌱
+        </button>
+
+        {hype && (
+          <p className="mt-4 text-center text-[#3F5A3F] font-medium">
+            {hype}
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        )}
+      </div>
+
+      {/* Wins List */}
+      <div className="mt-6 w-full max-w-md">
+        {wins.length === 0 && (
+          <p className="text-center text-[#7A8F7A]">
+            no wins yet… go touch some grass (lovingly) 🌱
+          </p>
+        )}
+
+        {wins.map((w, i) => (
+          <div
+            key={i}
+            className="bg-[#F6FBF7] rounded-2xl p-3 mb-2 border border-[#E3EFE5] text-[#2F3E2F]"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            {w}
+          </div>
+        ))}
+      </div>
+    </main>
   );
 }
